@@ -82,16 +82,12 @@ class Renderer {
     drawSlide2(framebuffer) {
         // TODO: draw at least 2 convex polygons (each with a different number of vertices >= 5)
         //   - variable `this.show_points` should be used to determine whether or not to render vertices
-        
-        
-        // Following lines are example of drawing a single triangle
-        // (this should be removed after you implement the polygon)
+
         let point_a = {x:  20, y:  10};
         let point_b = {x: 80, y: 300};
         let point_c = {x: 200, y: 400};
         let point_d = {x: 320, y: 300};
         let point_e = {x: 500, y: 100};
-        //let vertex_list = [point_a, point_b, point_c, point_d];
         let vertex_list1 = [point_a, point_b, point_c, point_d, point_e];
         this.drawConvexPolygon(vertex_list1, [0, 128, 128, 255], framebuffer);
 
@@ -102,26 +98,8 @@ class Renderer {
         let point_e2 = {x: 450, y: 525};
         let point_f2 = {x: 625, y: 525};
         let point_g2 = {x: 550, y: 425};
-        //let vertex_list = [point_a, point_b, point_c, point_d];
         let vertex_list2 = [point_a2, point_b2, point_c2, point_d2, point_e2, point_f2, point_g2];
         this.drawConvexPolygon(vertex_list2, [0, 128, 128, 255], framebuffer);
-        //this.drawTriangle(point_a, point_c, point_b, [0, 128, 128, 255], framebuffer);
-
-        if (this.show_points) {
-            this.drawVertex(point_a, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_b, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_c, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_d, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_e, [0, 128, 128, 255], framebuffer);
-
-            this.drawVertex(point_a2, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_b2, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_c2, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_d2, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_e2, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_f2, [0, 128, 128, 255], framebuffer);
-            this.drawVertex(point_g2, [0, 128, 128, 255], framebuffer);
-        }
     }
 
     // framebuffer:  canvas ctx image data
@@ -167,8 +145,9 @@ class Renderer {
         let y1 = p3.y;
         let change = 1/num_edges;
         let t = 1 - change;
+        let edge = 0;
 
-        while (t >= 0) {
+        while (edge < num_edges) {
             let x2 = Math.round((Math.pow((1-t), 3) * p0.x) + (3 * Math.pow((1-t), 2) * t * p1.x) + (3 * (1-t) * Math.pow(t, 2) * p2.x) + (Math.pow(t, 3) * p3.x));
             let y2 = Math.round(Math.pow((1-t), 3) * p0.y + 3 * Math.pow((1-t), 2) * t * p1.y + 3 * (1-t) * Math.pow(t, 2) * p2.y + Math.pow(t, 3) * p3.y);
 
@@ -180,6 +159,7 @@ class Renderer {
             t -= change;
             x1 = x2;
             y1 = y2;
+            edge++;
         }
     }
 
